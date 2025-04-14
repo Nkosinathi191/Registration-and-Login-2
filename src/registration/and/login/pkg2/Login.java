@@ -3,7 +3,7 @@ package registration.and.login.pkg2;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.Scanner;
+
 /**
  *
  * @author RC_Student_lab
@@ -15,7 +15,7 @@ public class Login {
     private String password;
     private String cellphonenumber;
     
-    Scanner user = new Scanner(System.in);
+  
 
     public String getName() {
         return name;
@@ -79,38 +79,24 @@ public class Login {
        
    }
    public void registerUser(){
-       System.out.print("Please Enter Your Password :");
-       String password = user.nextLine();
-       setPassword(password);
        
-      while (passwordComplexity())
-       { 
-       System.out.println("Password is incorrectly formatted");
-       System.out.print("Please Enter Your Password :");
-       password = user.nextLine();
-       setPassword(password);
-       
-    }
-      System.out.print("Please Enter Your Cellphone Number :");
-      String cellphoneNumber = user.nextLine();
-      setCellphonenumber(cellphoneNumber);
-      
-      while(checkCellphoneNumber()){
-       System.out.println("Cellphone number is not valid.");
-       System.out.print("Please Enter Your Cellphone Number :");
-       cellphoneNumber = user.nextLine();
-       setCellphonenumber(cellphoneNumber);
-      }
-     
-      System.out.print("Please Enter Your Username :");
-      String username = user.nextLine();
-      setUsername(username);
-      
-      while(checkUsername()){
-          System.out.println("Username is not valid.");
-          System.out.print("Please Enter Your Username :");
-          username = user.nextLine();
-          setUsername(username);
-      }
    }
+   public boolean loginUser(String enteredUsername, String enteredPassword){
+      return this.username.equals(enteredUsername) && this.password.equals(enteredPassword); 
+   }
+   public String returnLoginStatus(){
+   String loginStatus;
+
+    if (checkUsername() && passwordComplexity()) {
+        loginStatus = "User is successfully registered.";
+    } else if (checkUsername() && !passwordComplexity()) {
+        loginStatus = "Password is not complex enough.";
+    } else if (!checkUsername() && passwordComplexity()) {
+        loginStatus = "Username is formatted incorrectly.";
+    } else {
+        loginStatus = "Registration failed due to multiple issues.";
+    }
+
+    return loginStatus;
+}
 }
